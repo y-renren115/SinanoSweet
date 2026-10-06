@@ -2,17 +2,24 @@
 ### ![SinanoSweet](/app/assets/images/sinanosweet.png)
 ### アプリURL: [https://sinanosweet.herokuapp.com/](https://sinanosweet.herokuapp.com/)
 
-## サインイン・サインアップ方法
-### 管理者ログイン
-- メールアドレス: aaadmin\@email.com, パスワード: aaadmin
-- [こちらから管理者ログインできます](https://sinanosweet.herokuapp.com/admin/sign_in)
+## ローカル環境のセットアップとログイン
+- アカウントは各環境で作成してください。共有ログイン情報は掲載しません。
+- Ruby のバージョンは `.ruby-version` と `Gemfile` を確認してください。
+- `bundle install` 後、環境変数を設定して `bin/rails db:setup` を実行します。
+- `.env.example` は設定項目の見本です。このアプリは `.env` を自動読込しません。シェルまたは実行環境の秘密情報管理機能から設定してください。
+- 初期管理者が必要な場合のみ、`SEED_ADMIN_EMAIL` と `SEED_ADMIN_PASSWORD` の両方を設定してください。既存アカウントのパスワードは変更しません。
+- 開発・テスト用の顧客20件が必要な場合のみ、`SEED_DEMO_USERS=true` と `SEED_CUSTOMER_PASSWORD` を設定してください。本番では作成できません。
+- 顧客は新規登録画面からも登録できます。公開デモには実在の個人情報を入力しないでください。
 
-### 顧客ログイン
-- メールアドレス: sinanotarou\@email.com, パスワード: sinano
-- [こちらから顧客ログインできます](https://sinanosweet.herokuapp.com/end_user/sign_in)
+### 秘密情報の管理
+- 本番の `SECRET_KEY_BASE` または Rails の暗号化 credentials を秘密情報管理機能で設定してください。復号鍵を Git に追加しないでください。
+- Refile の署名鍵は Rails の非公開の鍵から用途別に導出します。独立した鍵を使う場合は、十分にランダムな64文字以上の `REFILE_SECRET_KEY` を設定してください。空の値は指定しないでください。
+- 署名鍵の変更後は、古い画像URLが無効になるため、画面を再読込し、保存済みURLやキャッシュも更新してください。
+- アカウント情報、`.env`、データベース、バックアップ、秘密鍵をコミットしないでください。
+- ソースの変更は稼働中のアカウント・鍵や Git の過去履歴を変更しません。既存環境の確認・更新は別途必要です。
 
-### 新規顧客登録
-- 新規登録画面からお名前、メールアドレス、ご住所、パスワードをご登録いただくことで利用できます。
+### 設定のテスト
+`ruby test/security/account_seeds_test.rb` と `ruby test/security/refile_configuration_test.rb` は Rails を起動せずに実行できます。
 
 ## サイトの概要
 ### サイト制作の背景

@@ -5,25 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-20.times do |n|
-  EndUser.create!(
-    last_name: "テスト",
-    first_name: "ユーザー#{n + 1}",
-    last_name_kana: "テスト",
-    first_name_kana: "ユーザー#{n + 1}",
-    email: "test_user#{n+1}@email.com",
-    phone_number: "09033336699",
-    postcode: "1236789",
-    address: "東京都港区",
-    password: "test0123"
-  )
-end
+require_relative 'seeds/accounts'
 
-
-Admin.create!(
-    email: "aaadmin@email.com",
-    password: "aaadmin"
-)
+AccountSeeds.run!(environment: Rails.env, admin_model: Admin, customer_model: EndUser)
 
 Genre.create!(
   [
